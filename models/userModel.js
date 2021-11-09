@@ -3,8 +3,10 @@ const jwt = require("jsonwebtoken");
 const db = require("../db.js");
 
 class User {
-	static async findOne(id) {
-		let instance = await db.query(`SELECT * FROM "users" WHERE id = ${id}`);
+	static async findOne(attr, value) {
+		let instance = await db.query(
+			`SELECT * FROM "users" WHERE ${attr} = '${value}'`
+		);
 		return instance.rows[0];
 	}
 
@@ -30,7 +32,7 @@ class User {
 	}
 
 	static update(req, res, id) {
-		let instance = this.findOne(id);
+		let instance = this.findOne("id", id);
 		instance.then(async function (data) {
 			if (req.body.email) {
 				await db.query(
@@ -59,11 +61,11 @@ class User {
 	}
 
 	static delete(req, res, id) {
-		let instance = this.findOne(id);
+		let instance = this.findOne("id", id);
 		instance.then(async function (data) {
 			await db.query(`DELETE FROM "users" WHERE id = ${data.id}`);
 			res.status(200).json({
-				message: "Success delete user",
+				messege: "Success delete user",
 			});
 		});
 	}
