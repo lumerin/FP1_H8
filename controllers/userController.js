@@ -59,7 +59,7 @@ class userController {
 				}
 			});
 
-			if (email_exist.length > 1) {
+			if (email_exist.length > 0) {
 				res.status(400).json({
 					messege: "Email already registered, use different email",
 				});
