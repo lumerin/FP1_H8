@@ -5,29 +5,34 @@ class Reflect {
         const data = { 
             success: req.body.success,
             low_point: req.body.low_point,
-            take_away: req.body.take_away
+            take_away: req.body.take_away,
+            owner_id: req.auth.id
          };
         Reflection.insert(res, data);
     }
     
     static take (req, res) {
-        const owner_id = req.headers.owner_id;
+        const owner_id = req.auth.id;
         Reflection.read(res, owner_id);
     }
 
     static change (req, res) {
         const data = {
-            id: req.params.id, 
+            id: req.params.id,
             success: req.body.success,
             low_point: req.body.low_point,
-            take_away: req.body.take_away
+            take_away: req.body.take_away,
+            owner_id: req.auth.id
          };
          Reflection.update(res, data);
     }
 
     static remove (req, res) {
-        const id = req.params.id;
-        Reflection.delete(res, id);
+        const data = {
+            id: req.params.id,
+            owner_id: req.auth.id
+        };
+        Reflection.delete(res, data);
     }
 }
 
