@@ -11,17 +11,9 @@ class Reflection {
                 response.status(500).json(err);
                 console.log(owner_id);
             } else {
-                response.status(200).json({ msg: "Sukses", data: result.rows });
+                response.status(200).json({ msg: "Success", data: result.rows });
             }
         });
-    }
-
-    static async readOne (dataa) {
-        let query = await db.query(`
-            SELECT * FROM "reflections"
-            WHERE id = ${dataa.id} AND owner_id = ${dataa.owner_id}; 
-        `);
-        return query.rows;
     }
     //Input data
     static insert ( response, data) {
@@ -33,7 +25,7 @@ class Reflection {
                 response.status(500).json(err);
                 console.log(err);
             } else {
-                response.status(201).json({ msg: "Sukses", data: result.rows });
+                response.status(201).json({ msg: "Success create reflection", data: result.rows });
             }
         });
     }
@@ -48,9 +40,9 @@ class Reflection {
                 console.log(err);
             } else {
                 if (result.rows == "") {
-                    response.status(401).json({ msg: "Gagal, reflection bukan milik Anda" });
+                    response.status(401).json({ msg: "Invalid Credentials" });
                 } else {
-                    response.status(201).json({ msg: "Sukses", data: result.rows });
+                    response.status(201).json({ msg: "Success update reflection", data: result.rows });
                 }
             }
         });
@@ -65,9 +57,9 @@ class Reflection {
                 console.log(err);
             } else {
                 if (result.rows == "") {
-                    response.status(401).json({ msg: "Gagal, reflection bukan milik Anda" });
+                    response.status(401).json({ msg: "Invalid Credentials" });
                 } else {
-                    response.status(201).json({ msg: "Sukses", data: result.rows });
+                    response.status(201).json({ msg: "Success deleted reflection", data: result.rows });
                 }
             }
         });
