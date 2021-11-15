@@ -32,7 +32,7 @@ class userController {
 			let decoded = jwt.verify(token, "secretKey");
 			User.findOne("email", decoded.email).then((data) => {
 				if (data !== null) {
-					req.auth = data.rows;
+					req.auth = data;
 					next();
 				} else {
 					res.status(401).json({ messege: "Invalid Credentials" });
